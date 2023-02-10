@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>School Name</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <link rel="stylesheet"  type="text/css" href="{{ url_for('static', filename='main.css') }}"">
+
+
+</head>
+<style>
+    form{
+        margin-top:50px;
+        margin-left:400px;
+        border:3px solid;
+        width:700px;
+        font-size: 1.5em;
+        padding:30px;
+        align-self:center;
+        
+    }
+    h1{
+        text-align: center;
+    }
+    input{
+        font-size: 1em;
+    }
+    button{
+        font-size: 1em;
+    }
+    #email_error{
+        color: red;
+    }
+    legend{
+        font-size: 40px;
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: 800;
+    }
+    footer {
+	width: 100%;
+	left: 0;
+	bottom: 0;
+	background-color: brown;
+	color: white;
+	text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+    h1{
+        color: rgb(255, 21, 0);
+        font-weight: 800;
+    }
+    #kit{
+        color:white;
+        text-decoration: none;
+    }
+</style>
+
+<body>
+
+
+
+    <div class="content"> 
+        <form method="POST" action="">
+              {{form.hidden_tag()}}
+              <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Create your Assignment here:</legend>
+                <div class="form-group">
+                    {{form.CourseTitle.label(class="form-control-label")}}
+
+                    {% if form.CourseTitle.errors   %}
+                             {{form.CourseTitle(class="form-control form-control-lg is-invalid")}}
+                             <div class="invalid-feedback">
+                                         {%  for error in form.CourseTitle.errors  %}
+                                              <span>{{error}}</span>
+                                         {%  endfor %}
+
+                             </div>
+                    {%  else%}
+                                 {{form.CourseTitle(class="form-control form-control-lg")}}
+                    {% endif  %}
+
+                </div>
+                <div class="form-group">
+                    {{form.CourseNo.label(class="form-control-label")}}
+                    {% if form.CourseNo.errors   %}
+                    {{form.CourseNo(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                                {%  for error in form.CourseNo.errors  %}
+                                     <span>{{error}}</span>
+                                {%  endfor %}
+
+                    </div>
+           {%  else%}
+                        {{form.CourseNo(class="form-control form-control-lg")}}
+           {% endif  %}
+                </div>
+                <div class="form-group">
+                    {{form.Deadline.label(class="form-control-label")}}
+                    {% if form.Deadline.errors   %}
+                    {{form.Deadline(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                                {%  for error in form.Deadline.errors  %}
+                                     <span>{{error}}</span>
+                                {%  endfor %}
+
+                    </div>
+           {%  else%}
+                        {{form.Deadline(class="form-control form-control-lg")}}
+           {% endif  %}
+                </div>
+                <div class="form-group">
+                    {{form.Content.label(class="form-control-label")}}
+                    {% if form.Content.errors   %}
+                    {{form.Content(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                                {%  for error in form.Content.errors  %}
+                                     <span>{{error}}</span>
+                                {%  endfor %}
+
+                    </div>
+           {%  else%}
+                        {{form.Content(class="form-control form-control-lg")}}
+           {% endif  %}
+
+                </div>
+                
+
+           
+            <div class="form-group">
+                {{form.MaximiumScore.label(class="form-control-label")}}
+                {% if form.MaximiumScore.errors   %}
+                {{form.MaximiumScore(class="form-control form-control-lg is-invalid")}}
+                <div class="invalid-feedback">
+                            {%  for error in form.MaximiumScore.errors  %}
+                                 <span>{{error}}</span>
+                            {%  endfor %}
+
+                </div>
+            {%  else%}
+                    {{form.MaximiumScore(class="form-control form-control-lg")}}
+            {% endif  %}
+
+            </div>
+            <div class="form-group">
+                {{form.Remark.label(class="form-control-label")}}
+                {% if form.Remark.errors   %}
+                {{form.Remark(class="form-control form-control-lg is-invalid")}}
+                <div class="invalid-feedback">
+                            {%  for error in form.Remark.errors  %}
+                                 <span>{{error}}</span>
+                            {%  endfor %}
+
+                </div>
+            {%  else%}
+                    {{form.Remark(class="form-control form-control-lg")}}
+            {% endif  %}
+
+            </div>
+            <div class="form-group">
+                {{form.submit(class="btn btn-outline-danger")}}
+            </div>
+
+          </fieldset>
+          </form>
+
+<br><br><br><br><br>
+<footer>
+	<p>Copyright &copy; 2023 KIT Foundation Year Team</p>
+    <p>Contact: 010 575 011 <div>095 777 845 </div> </p>
+    <div><a href="https://kit.edu.kh/" id="kit">Kirrirom Institute of technology</a></div>
+</footer>
+
+ <body>
+    
+    </html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KIT Foundation Year2021-2022</title>
+    <link rel="stylesheet"  type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <section>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="home">KIT Foundation Year 2021-2022</a>
+
+            <button class="navbar-toggler" style="margin-right:5px !important;" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse top_nav" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto ">
+                    <li class="nav-item">
+                        <a href="home" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item "><a href="timetable" class="nav-link">Time table</a>
+                    </li>
+                    <li class="nav-item "><a href="lecturenote" class="nav-link">Lecture Note</a>
+                    </li>
+                    <li class="nav-item "><a href="reportcard" class="nav-link">Report Card</a>
+                    </li>
+                </ul>
+                <ul class="navbar navbar-nav navbar-right" style="display:flex;">
+                    <li>
+                        <button class="btn top_login" style="color: white">
+                            <a  href="/">Sign out</a>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</section>
+<div class="col-bg-4">
+  {%  with messages = get_flashed_messages(with_categories=true)  %}
+     {%  if messages   %}
+          {%  for category,message in messages  %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+
+          {%  endfor  %}
+     {% endif  %}
+  {% endwith    %}
+</div>
+    <section>
+        <div class="container">
+            <div class="row p-5">
+                <div class="col-lg-5">
+                    <h3>Our <span style="color: #CB2234;">Organizer</span></h1>
+                        <div class="pres-pic pt-3"><img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="" width="400px" height="400px"></div>
+                        <div class="pres-name">
+                            <p>Mr. Dinesh Kumar </p>
+                        </div>
+                        <div class="pres-pic pt-3"><img src="{{ url_for('static', filename='images/miss_irene.jpg') }}" alt="" width="400px" height="400px"></div>
+                        <div class="pres-name">
+                            <p>Miss Irene C Don </p>
+                        </div>
+                        <div class="pres-pic pt-3"><img src="{{ url_for('static', filename='images/Mr_Monchito.jpg') }}" alt="" width="400px" height="400px"></div>
+                        <div class="pres-name">
+                            <p>Mr Monchito </p>
+                        </div>
+                </div>
+                <div class="col-lg-7 pt-5">
+                   
+            </div>
+            <div class="pt-3 course">
+                <h3>Our<span style="color: #CB2234;"> Course</span></h3><br>
+                <div class="row">
+                  <div class="col-lg-4 pt-3">
+                    <div class="card bg-dark text-white">
+                      <img src="{{ url_for('static', filename='images/python.png') }}" class="card-img" alt="..." width="50px" height="50px">
+                      <div class="card-img-overlay">
+                        <h5 class="card-title" style="color: rgb(219, 212, 212);">Python Programming</h5><br>
+                        <a href="python">Read More</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 pt-3">
+                    <div class="card bg-dark text-white">
+                      <img src="{{ url_for('static', filename='images/geography.png') }}" class="card-img" alt="..." width="50px" height="50px">
+                      <div class="card-img-overlay">
+                        <h5 class="card-title" style="color: rgb(219, 212, 212);">Introduction to World History and Geography</h5><br>
+                        <a href="geo">Read More</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 pt-3">
+                    <div class="card bg-dark text-white">
+                      <img src="{{ url_for('static', filename='images/java.png') }}" class="card-img" alt="..."width="50px" height="50px">
+                      <div class="card-img-overlay">
+                        <h5 class="card-title" style="color: rgb(219, 212, 212);">Java programing</h5><br>
+                        <a href="java">Read More</a>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+        </div>
+
+        
+    </section>
+    <div class="enroll">
+        <h1 style="color: #CB2234; ">Want to join us?</h1>
+        <p>Check out all the requirements down below!</p>
+        <div class="pt-4 admission-button">
+          <a href="admission" class="btn btn-danger btn-lg" tabindex="-1" role="button" aria-disabled="true">Admissions</a>
+        </div>
+      </div>
+
+
+    </body>
+    
+    </html>
+    

@@ -1,0 +1,46 @@
+.navbar-nav .nav-link {
+    margin-right: 25px;
+    margin-left: 25px;
+}
+
+.pres-name{
+    padding-top: 10px;
+    padding-left: 120px;
+    font-size: 1.5em;
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+.course img{
+    filter: brightness(40%);
+    height: 230px;
+}
+
+.course h5{
+    text-align: center;
+    padding-top: 30%;
+}
+
+.course a{
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: rgb(172, 169, 169);
+}
+
+.course a:hover{
+    color: #CB2234;
+    transform : scale(1.1);
+}
+
+.enroll {
+    background-color: #3a3939;
+    color: white;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
