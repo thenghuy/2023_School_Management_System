@@ -1,12 +1,12 @@
-from flask import render_template,flash,redirect,url_for,request
+from flask import render_template,flash,redirect,url_for,request,abort
 from flaskblog.form import Registration,Login,AssignmentPost,ReportCard
 from flask_sqlalchemy import SQLAlchemy
 from flaskblog import app,db,bcrypt
 from flaskblog.model import User,Post,Student
-from flask_login import login_user,current_user,UserMixin,logout_user,login_required
+from flask_login import login_user,current_user,logout_user,login_required
 import secrets
+from datetime import datetime
 from wtforms.validators import ValidationError
-
 
 @app.route("/home")
 def home():
@@ -50,7 +50,7 @@ def timetable():
 @login_required
 def reportcard():
  if current_user.is_authenticated:
-             studs = Student.query.all()
+             studs = Student.query.all()#this one we select all student from database after the insertion and display
              return render_template('reportcard.html',title='Report Card Page',studs=studs)
 @app.route("/admission")
 def admission():
@@ -79,8 +79,9 @@ def python():
 @app.route("/lecturenote")
 def lecturenote():
         if current_user.is_authenticated:
-             posts = Post.query.all()
-             return render_template('lecturenote.html',title='Report Card Page',posts=posts)
+             page = request.args.get('page',1,type=int)#default page = 1
+             posts = Post.query.paginate(per_page=5)
+             return render_template('lecturenote.html',title='Report Card Page',posts=posts,page=page)
 
 @app.route("/signout")
 def signout():
@@ -95,18 +96,35 @@ def new_ass():
     form = AssignmentPost()
     if form.validate_on_submit():
         post =Post(course_title=form.CourseTitle.data,course_id=form.CourseNo.data,content=form.Content.data,deadline=form.Deadline.data,remark=form.Remark.data,max_score=form.MaximiumScore.data,author=current_user)
-        db.session.add(post)
-        db.session.commit()
+        db.session.add(post)#already insert
+        db.session.commit()#confirm 
         flash(f'Your Assignment : {post.course_title} have been created!','success')
         return redirect(url_for('lecturenote'))
     return render_template('create_ass.html',title='Register Page',form=form,legend='New Assign')
+
+""""@app.route("/posts",methods=['POST'])
+def new_ass():
+    course_title = request.form.get("course_title")
+    course_id = request.form.get("course_id")
+    content = request.form.get("content")
+    deadline = datetime.now()
+    remark = request.form.get("remark")
+    max_score = request.form.get("max_score")
+    current_user = request.form.get("user_id")
+    post =Post(course_id= course_id, course_title=course_title,content=content,deadline=deadline,remark=remark,max_score=max_score, user_id = current_user)
+    db.session.add(post)#already insert
+    db.session.commit()#confirm 
+    return "Success"
+"""
+
 @app.route("/add_stu",methods=["GET","POST"])
 @login_required
 def addstu():
         form=ReportCard()
         if form.validate_on_submit():
                 check_student = Student.query.filter_by(student_id =form.ID.data).first()
-                if check_student:
+                #Not accuracy
+                if check_student:#true
                    flash(f'The Student is already exist','danger')
                    return redirect(url_for('addstu'))
                 student = Student(student_id=form.ID.data,student_name=form.Name.data,student_score=form.Score.data,student_grade=form.Grade.data,author=current_user)
@@ -117,8 +135,21 @@ def addstu():
         return render_template('create_stulist.html',title='Report Card Page',form=form)
 @app.route("/post/<int:post_id>")
 def post(post_id):
-    post = Post.query.get_or_404(post_id)
+    post = Post.query.get_or_404(post_id)#show error 
     return render_template('u_lecture.html',post=post)
+
+""""@app.route("/posts")
+def posts():
+    posts = Post.query.all()#show error 
+    list_posts = []
+    for post in posts:
+         json_post ={
+              "id" : post.id,
+              "course_title" : post.course_title
+         }
+         list_posts.append(json_post)
+    return list_posts"""
+
 @app.route("/post/<int:post_id>/update",methods=["GET","POST"])
 @login_required
 def update_post(post_id):
@@ -127,7 +158,7 @@ def update_post(post_id):
     if post.author !=current_user:
         post(403)
     if form.validate_on_submit():
-        post.course_title=form. CourseTitle.data
+        post.course_title=form.CourseTitle.data
         post.course_id=form.CourseNo.data
         post.deadline=form.Deadline.data
         post.max_score=form.MaximiumScore.data
@@ -142,5 +173,15 @@ def update_post(post_id):
      form.MaximiumScore.data=post.max_score
      form.Content.data=post.content
     return render_template('create_ass.html',form=form,legend='Update Post')
+@app.route("/post/<int:post_id>/delete",methods=["GET","POST"])
+@login_required
+def delete_post(post_id):
+     post = Post.query.get_or_404(post_id)
+     if post.author != current_user:
+          abort(403)
+     db.session.delete(post)
+     db.session.commit()
+     flash('Your post has been deleted','success')
+     return redirect(url_for('home'))
 with app.app_context():
     db.create_all()

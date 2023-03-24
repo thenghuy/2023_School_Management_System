@@ -20,6 +20,20 @@
 </head>
 
 <style>
+.paginate{
+  font-size: 30px;
+  margin-left: 30px;
+  text-indent: 15px;
+  text-decoration: none;
+}
+a{
+  text-decoration: none;
+  color:#CB2234
+}
+a:hover{
+  background-color: antiquewhite;
+  text-decoration: none;
+}
 .button-82-pushable {
     position: relative;
     border: none;
@@ -176,9 +190,10 @@
       Add new Assignment
     </a>
   </button>
+
   <br><br>
 <section class="post">
-    {% for post in posts  %}
+    {% for post in posts.items  %}
     <article class="media content-section">
         <div class="media-body">
             <div class="article-metadata">
@@ -187,7 +202,7 @@
             <small class="text-muted">
                 {{post.date_posted}}
             </small>
-            <h2 class="article-title"><a href="{{url_for('post',post_id=post.id)}}">{{post.course_title}}</a></h2>
+            <h2 class="article-title"><a href="{{url_for('update_post',post_id=post.id)}}">{{post.course_title}}</a></h2>
             <p class="article-content">{{post.content}}</p>
             <i>Remark   :{{post.remark}}</i>
             <br>
@@ -195,8 +210,16 @@
             <p class="max-score">Maximium Score : {{post.max_score}}</p>
 
         </div>
-
+        <form action="{{url_for('delete_post',post_id=post.id)}}">
+          <input class="btn btn-danger" type="submit" value="Delete">
+        </form>
+      
     </article>
+    {% endfor  %}
+</section>
+<section class="paginate">
+    {% for i in posts.iter_pages()  %}
+         <a href="{{url_for('lecturenote',page=i)}}">{{i}}</a>
     {% endfor  %}
 </section>
 

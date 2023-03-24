@@ -27,7 +27,7 @@ class Post(db.Model):
     remark = db.Column(db.Text,nullable=False)
     user_id = db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
     def __repr__(self):
-        return f"Post('{self.course_title}','{self.content}','{self.date_posted})"
+        return f"Post('{self.author.name}':'{self.course_title}','{self.content}','{self.date_posted})"
 
 class Student(db.Model):
     id=db.Column(db.Integer,primary_key=True)
